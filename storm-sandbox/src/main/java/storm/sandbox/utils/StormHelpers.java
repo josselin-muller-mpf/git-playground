@@ -1,55 +1,21 @@
-package storm.sandbox;
+package storm.sandbox.utils;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.apache.storm.Config;
 import org.apache.storm.LocalCluster;
 import org.apache.storm.StormSubmitter;
-import org.apache.storm.kafka.*;
-import org.apache.storm.spout.SchemeAsMultiScheme;
+import org.apache.storm.generated.AlreadyAliveException;
+import org.apache.storm.generated.AuthorizationException;
+import org.apache.storm.generated.InvalidTopologyException;
 import org.apache.storm.topology.TopologyBuilder;
-import org.apache.storm.tuple.Fields;
 
-import java.util.Arrays;
-import java.util.UUID;
-
-public class WordCountTopology
+public class StormHelpers
 {
-    // Create logger for this class
-    private static final Logger logger = LogManager.getLogger(WordCountTopology.class);
+    private static final Logger logger = LogManager.getLogger(StormHelpers.class);
 
-    // Entry point for the topology
-    public static void main(String[] args) throws Exception
+    public static void SubmitTopology(TopologyBuilder builder, Config conf, String[] args) throws InvalidTopologyException, AuthorizationException, AlreadyAliveException, InterruptedException
     {
-        logger.info("STARTING WORDCOUNT TOPOLOGY");
-
-        // Used to build the topology
-        TopologyBuilder builder = new TopologyBuilder();
-        String topicName = "test";
-
-        BrokerHosts hosts = new ZkHosts("localhost:2181");
-        SpoutConfig spoutConfig = new SpoutConfig(hosts, topicName, "/kafka_tests", UUID.randomUUID().toString());
-        spoutConfig.scheme = new SchemeAsMultiScheme(new StringScheme());
-
-        builder.setSpout("spout", new KafkaSpout(spoutConfig));
-        builder.setBolt("split", new SplitSentence()).shuffleGrouping("spout");
-        //builder.setBolt("count", new WordCount()).fieldsGrouping("split", new Fields("word"));
-
-        // new configuration
-        Config conf = new Config();
-
-        // Set to false to disable debug information when
-        // running in production on a cluster
-        conf.setDebug(true);
-
-        conf.put(Config.TOPOLOGY_DEBUG, true);
-        //conf.put(Config.TOPOLOGY_TICK_TUPLE_FREQ_SECS, 2);
-//        conf.put(Config.NIMBUS_SEEDS, nimbus_seeds);
-//        conf.put(Config.NIMBUS_THRIFT_PORT, 6627);
-        //conf.put(Config.TOPOLOGY_MAX_SPOUT_PENDING, 1);
-        conf.put(Config.STORM_ZOOKEEPER_PORT, 2181);
-        conf.put(Config.STORM_ZOOKEEPER_SERVERS, Arrays.asList("localhost"));
-
         // If there are arguments, we are running on a cluster
         if (args != null && args.length > 0)
         {

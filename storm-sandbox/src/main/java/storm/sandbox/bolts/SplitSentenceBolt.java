@@ -1,4 +1,4 @@
-package storm.sandbox;
+package storm.sandbox.bolts;
 
 import java.text.BreakIterator;
 
@@ -13,9 +13,9 @@ import org.apache.storm.tuple.Tuple;
 import org.apache.storm.tuple.Values;
 
 // There are a variety of bolt types. In this case, use BaseBasicBolt
-public class SplitSentence extends BaseBasicBolt
+public class SplitSentenceBolt extends BaseBasicBolt
 {
-    private static final Logger logger = LogManager.getLogger(WordCount.class);
+    private static final Logger logger = LogManager.getLogger(WordCountBolt.class);
 
     // Execute is called to process tuples
     @Override

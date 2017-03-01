@@ -1,4 +1,4 @@
-package storm.sandbox;
+package storm.sandbox.bolts;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,10 +17,10 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 // There are a variety of bolt types. In this case, use BaseBasicBolt
-public class WordCount extends BaseBasicBolt
+public class WordCountBolt extends BaseBasicBolt
 {
     // Create logger for this class
-    private static final Logger logger = LogManager.getLogger(WordCount.class);
+    private static final Logger logger = LogManager.getLogger(WordCountBolt.class);
 
     // For holding words and counts
     Map<String, Integer> counts = new HashMap<String, Integer>();
@@ -29,13 +29,13 @@ public class WordCount extends BaseBasicBolt
     private Integer emitFrequency;
 
     // Default constructor
-    public WordCount()
+    public WordCountBolt()
     {
         emitFrequency = 5; // Default to 60 seconds
     }
 
     // Constructor that sets emit frequency
-    public WordCount(Integer frequency)
+    public WordCountBolt(Integer frequency)
     {
         emitFrequency = frequency;
     }
