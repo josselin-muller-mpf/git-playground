@@ -1,2 +1,4 @@
 brainfuck/target/
 brainfuck/.idea/workspace.xml
+storm-sandbox/.idea/
+storm-sandbox/target/
