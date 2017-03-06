@@ -4,7 +4,7 @@
 
     <groupId>playground</groupId>
     <artifactId>brainfuck-interpreter</artifactId>
-    <version>1.0.0-1-SNAPSHOT</version>
+    <version>1.0.0-1</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -14,7 +14,7 @@
         <url>https://github.com/josselin-muller-mpf/git-playground</url>
         <connection>scm:git:git@github.com:josselin-muller-mpf/git-playground.git</connection>
         <developerConnection>scm:git:git@github.com:josselin-muller-mpf/git-playground.git</developerConnection>
-        <tag>brainfuck-interpreter-1.0.0-0</tag>
+        <tag>brainfuck-interpreter-1.0.0-1</tag>
     </scm>
 
     <build>
